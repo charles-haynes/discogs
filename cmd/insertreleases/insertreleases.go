@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"math"
 	"os"
 	"runtime"
 	"strings"
@@ -112,7 +113,34 @@ CREATE VIRTUAL TABLE release_fts USING fts5(artist, album, masterid UNINDEXED);
 	_ = db.MustExec(`
 INSERT INTO release_fts(release_fts)
   VALUES('optimize');
-ANALYZE;
-`)
+ANALYZE;`)
+	fmt.Printf(" took %s\n", time.Since(start))
+	fmt.Printf("Creating vocabulary")
+	start = time.Now()
+	_ = db.MustExec(`
+CREATE VIRTUAL TABLE IF NOT EXISTS temp.ftsv
+USING fts5vocab(main, 'release_fts', 'row');
+CREATE TABLE IF NOT EXISTS fts_v (
+    term TEXT UNIQUE PRIMARY KEY NOT NULL,
+    doc INT NOT NULL,
+    cnt INT NOT NULL
+) WITHOUT ROWID;
+INSERT INTO fts_v SELECT * from temp.ftsv;
+DROP TABLE temp.ftsv;`)
+	fmt.Printf(" took %s\n", time.Since(start))
+	fmt.Printf("Computing statistics")
+	var mean float64
+	DieIfError(db.Get(&mean, `
+SELECT avg(cnt) AS mean FROM fts_v`))
+	var variance float64
+	DieIfError(db.Get(&variance, `;
+SELECT sum((cnt-?)*(cnt-?))/count(*) FROM fts_v`, mean, mean))
+	sd := math.Sqrt(variance)
+	_ = db.MustExec(`
+CREATE TABLE IF NOT EXISTS stats (
+    mean FLOAT NOT NULL,
+    sd FLOAT NOT NULL
+);
+INSERT INTO stats VALUES(?,?);`, mean, sd)
 	fmt.Printf(" took %s\n", time.Since(start))
 }

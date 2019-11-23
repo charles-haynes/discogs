@@ -38,6 +38,7 @@ github.com/bradfitz/iter v0.0.0-20140124041915-454541ec3da2/go.mod h1:PyRFw1Lt2w
 github.com/bradfitz/iter v0.0.0-20190303215204-33e6a9893b0c/go.mod h1:PyRFw1Lt2wKX4ZVSQ2mk+PeDa1rxyObEDlApuIsUKuo=
 github.com/charles-haynes/html2bbcode v0.0.0-20191010140350-63d1fbb9d7d7/go.mod h1:N7ry61JcdPtFPlj5i5a9Br07c+QdEaFX8LMTwngTcsY=
 github.com/charles-haynes/munkres v0.0.0-20190922052047-4487b45c0a2c/go.mod h1:2HKRkBKHxwbr0C8ufBJJg1OHx0AlzFuzTFeDKf9yMCE=
+github.com/charles-haynes/munkres v0.0.0-20191008174651-55d467190535/go.mod h1:2HKRkBKHxwbr0C8ufBJJg1OHx0AlzFuzTFeDKf9yMCE=
 github.com/charles-haynes/strsim v0.0.0-20191011181331-ef9ead4980ee/go.mod h1:zPmxD6oTVqVx2JQayiogXjfpgd+jX1xitDTJ6A/I6s8=
 github.com/coreos/etcd v3.3.10+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
 github.com/coreos/go-etcd v2.0.0+incompatible/go.mod h1:Jez6KQU2B/sWsbdaef3ED8NzMklzPG4d5KIOhIy30Tk=

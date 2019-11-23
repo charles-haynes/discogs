@@ -16,7 +16,7 @@ require (
 	github.com/charles-haynes/discogs v0.0.0
 	github.com/charles-haynes/gazelle v0.1.0
 	github.com/charles-haynes/html2bbcode v0.0.0-20191010140350-63d1fbb9d7d7
-	github.com/charles-haynes/munkres v0.0.0-20190922052047-4487b45c0a2c
+	github.com/charles-haynes/munkres v0.0.0-20191008174651-55d467190535
 	github.com/charles-haynes/strsim v0.0.0-20191011181331-ef9ead4980ee
 	github.com/charles-haynes/whatapi v0.0.14
 	github.com/edsrzf/mmap-go v1.0.0
