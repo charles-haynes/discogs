@@ -2,11 +2,9 @@ package discogs
 
 import (
 	"fmt"
-	"math"
 	"os"
 	"runtime"
 	"strings"
-	"time"
 	"unicode"
 
 	"github.com/jmoiron/sqlx"
@@ -69,7 +67,7 @@ func (d *DB) Terms(query string) []string {
 	for i := range words {
 		words[i] = strings.ToLower(words[i])
 	}
-	if len(words) <= 2 {
+	if len(words) == 1 {
 		return words
 	}
 	var r []struct {
@@ -116,18 +114,8 @@ SELECT term, abs(?-cnt) as delta FROM fts_v WHERE term IN (?);`,
 func NewDB(db *sqlx.DB) DB {
 	var d DB
 	d.DB = db
-	start := time.Now()
-	_, err := d.Exec(`
-CREATE VIRTUAL TABLE IF NOT EXISTS fts_v
-USING fts5vocab('release_fts', 'row');`)
-	DieIfError(err)
-	DieIfError(d.Get(&d.mean, `
-SELECT avg(cnt) AS mean FROM fts_v`))
-	var variance float64
-	DieIfError(d.Get(&variance, `
-SELECT sum((cnt-?)*(cnt-?))/count(*) FROM fts_v`, d.mean, d.mean))
-	d.sd = math.Sqrt(variance)
-	fmt.Printf("# Opening discogs took %s\n", time.Since(start))
+	DieIfError(d.Get(&d.mean, `SELECT mean FROM stats`))
+	DieIfError(d.Get(&d.sd, `SELECT sd FROM stats`))
 	return d
 }
 
