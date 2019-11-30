@@ -1,8 +1,6 @@
-module github.com/charles-haynes/cross-seed
+module github.com/charles-haynes/discogs
 
 go 1.13
-
-replace github.com/charles-haynes/discogs => ../discogs
 
 replace github.com/charles-haynes/gazelle => ../gazelle
 
@@ -13,7 +11,6 @@ require (
 	github.com/anacrolix/torrent v1.5.2
 	github.com/antchfx/htmlquery v1.0.0
 	github.com/bradfitz/iter v0.0.0-20190303215204-33e6a9893b0c
-	github.com/charles-haynes/discogs v0.0.0
 	github.com/charles-haynes/gazelle v0.1.0
 	github.com/charles-haynes/html2bbcode v0.0.0-20191010140350-63d1fbb9d7d7
 	github.com/charles-haynes/munkres v0.0.0-20191008174651-55d467190535
